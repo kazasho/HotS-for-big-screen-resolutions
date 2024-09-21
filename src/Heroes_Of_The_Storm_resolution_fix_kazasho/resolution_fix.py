@@ -3,16 +3,19 @@ import stat
 from stat import S_IREAD, S_IWUSR
 import sys
 import re
+from modules.OS_checker import *
 
 #User defined variables
 Desired_resolution_w = "5120"
 Desired_resolution_h = "1440"
 
-#File variables
+#OS checker
 
-HotS_Document_Path = os.path.expanduser('~') + r"\Documents\Heroes of the Storm"
-HotS_config_file = "Variables.txt"
-HotS_config_path = HotS_Document_Path + "\\" + HotS_config_file
+
+try:
+	HotS_config_path = OS_checker()
+except:
+ 	print("OS checker: Exception raised.")
 
 #Config factory
 
