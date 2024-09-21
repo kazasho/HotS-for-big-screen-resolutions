@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "Heroes_of_the_Storm_resolution_fix_kazasho"
 version = "0.0.1"
