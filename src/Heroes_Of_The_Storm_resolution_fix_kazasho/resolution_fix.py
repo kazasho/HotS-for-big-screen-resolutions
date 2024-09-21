@@ -6,6 +6,8 @@ import re
 from modules.OS_checker import *
 
 #User defined variables
+
+
 Desired_resolution_w = "5120"
 Desired_resolution_h = "1440"
 
@@ -81,6 +83,7 @@ def Change_height():
 #Filecheck factory
 #Check that config file exists, and if we can modify it
 
+
 try:
 	Permission_factory(Remove_read_only)
 	with open(HotS_config_path, "r") as r:
@@ -101,6 +104,7 @@ except:
 
 #Change factory
 #Find current resolution
+
 
 with open(HotS_config_path, 'r') as f:
     Width = re.findall(r'width=\d+', f.read())
