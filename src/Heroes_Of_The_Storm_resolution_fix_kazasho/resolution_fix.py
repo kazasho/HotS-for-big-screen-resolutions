@@ -12,10 +12,7 @@ Desired_resolution_h = "1440"
 #OS checker
 
 
-try:
-	HotS_config_path = OS_checker()
-except:
- 	print("OS checker: Exception raised.")
+HotS_config_path = OS_checker()
 
 #Config factory
 
