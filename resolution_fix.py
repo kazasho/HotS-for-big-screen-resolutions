@@ -10,6 +10,7 @@ from modules.OS_checker import *
 
 Desired_resolution_w = "5120"
 Desired_resolution_h = "1440"
+MakeConfigReadOnly = "no" #yes/no - Default no
 
 #OS checker
 
@@ -106,14 +107,27 @@ except:
 #Find current resolution
 
 
-with open(HotS_config_path, 'r') as f:
-    Width = re.findall(r'width=\d+', f.read())
-    
-with open(HotS_config_path, 'r') as f:
-    Height = re.findall(r'height=\d+', f.read())
-
-print("Current width: " + Width[0])
-print("Current height: " + Height[0])
+try:
+	with open(HotS_config_path, 'r') as f:
+		Width = re.findall(r'width=\d+', f.read())
+	print("Current width: " + Width[0])
+except IndexError:
+	print("Width missing from config file, adding it.")
+	with open(HotS_config_path, 'a') as f:
+		f.write('width=1920')
+		Width = re.findall(r'width=\d+', f.read())
+	print("Current width: " + Width[0])
+try:
+	with open(HotS_config_path, 'r') as f:
+		Height = re.findall(r'height=\d+', f.read())
+	print("Current height: " + Height[0])
+except IndexError:
+	print("Height missing from config file, adding it.")
+	with open(HotS_config_path, 'a') as f:
+		f.write('height=1200')
+	with open(HotS_config_path, 'r') as f:
+		Height = re.findall(r'height=\d+', f.read())
+	print("Current height: " + Height[0])
 
 #Check if width and height is correct, fix it if wrong
 
@@ -130,4 +144,13 @@ else:
 	print("Height wrong, fixing.")
 	Change_height()
 
-#Permission_factory(Add_read_only)
+# Make config-file read only?
+
+
+if MakeConfigReadOnly == "no":
+	print("Skipping to make the config file read-only")
+elif MakeConfigReadOnly == "yes":
+	Permission_factory(Add_read_only)
+else:
+	print("MakeConfigReadOnly user defined variable is set wrong, yes or no is the only accepted statements")
+	sys.exit(0)
