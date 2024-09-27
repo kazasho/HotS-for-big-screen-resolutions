@@ -1,5 +1,5 @@
-# Example Package
+# Heroes of the Storm enable big resolutions
 
-This is a simple example package. You can use
-[GitHub-flavored Markdown](https://guides.github.com/features/mastering-markdown/)
-to write your content.
+1. Edit "resolution_fix.py"
+2. Change the values under "User defined variables" to you liking
+3. Run "resolution_fix.py"
