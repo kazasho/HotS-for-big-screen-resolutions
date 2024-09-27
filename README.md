@@ -3,6 +3,8 @@
 The script works on Windows and MacOS.
 It must be run by the user account on the machine that will execute the game.
 
+Works on Python v3.9.6
+
 ## First time setup
 
 1. Edit "resolution_fix.py"
