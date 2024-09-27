@@ -112,6 +112,7 @@ try:
 		Width = re.findall(r'width=\d+', f.read())
 	print("Current width in config file: " + Width[0])
 except IndexError:
+	# Create config line if missing
 	print("Width missing from config file, adding it.")
 	with open(HotS_config_path, 'a') as f:
 		f.write('width=1920')
@@ -122,6 +123,7 @@ try:
 		Height = re.findall(r'height=\d+', f.read())
 	print("Current height in config file: " + Height[0])
 except IndexError:
+	# Create config line if missing
 	print("Height missing from config file, adding it.")
 	with open(HotS_config_path, 'a') as f:
 		f.write('height=1200')
