@@ -110,24 +110,24 @@ except:
 try:
 	with open(HotS_config_path, 'r') as f:
 		Width = re.findall(r'width=\d+', f.read())
-	print("Current width: " + Width[0])
+	print("Current width in config file: " + Width[0])
 except IndexError:
 	print("Width missing from config file, adding it.")
 	with open(HotS_config_path, 'a') as f:
 		f.write('width=1920')
 		Width = re.findall(r'width=\d+', f.read())
-	print("Current width: " + Width[0])
+	print("Current width in config file: " + Width[0])
 try:
 	with open(HotS_config_path, 'r') as f:
 		Height = re.findall(r'height=\d+', f.read())
-	print("Current height: " + Height[0])
+	print("Current height in config file: " + Height[0])
 except IndexError:
 	print("Height missing from config file, adding it.")
 	with open(HotS_config_path, 'a') as f:
 		f.write('height=1200')
 	with open(HotS_config_path, 'r') as f:
 		Height = re.findall(r'height=\d+', f.read())
-	print("Current height: " + Height[0])
+	print("Current height in config file: " + Height[0])
 
 #Check if width and height is correct, fix it if wrong
 
