@@ -1,4 +1,4 @@
-# Heroes of the Storm enable big resolutions
+# Heroes of the Storm enable big screen resolutions
 
 The script works on Windows and MacOS.
 
