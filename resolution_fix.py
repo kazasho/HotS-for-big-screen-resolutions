@@ -5,13 +5,15 @@ import sys
 import re
 from modules.OS_checker import *
 import logging
+from dotenv import load_dotenv
 
-#User defined variables
+#Import user defined variables
 
 
-Desired_resolution_w = "5120"
-Desired_resolution_h = "1440"
-MakeConfigReadOnly = "no" #yes/no - Default no
+load_dotenv()
+Desired_resolution_w = os.getenv("Desired_resolution_w")
+Desired_resolution_h = os.getenv("Desired_resolution_h")
+MakeConfigReadOnly = os.getenv("MakeConfigReadOnly")
 
 # Configure basic logging
 logging.basicConfig(filename='resolution_fix.log', level=logging.INFO, format='%(asctime)s %(message)s')

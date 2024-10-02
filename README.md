@@ -7,8 +7,8 @@ Works on Python v3.9.6
 
 ## First time setup
 
-1. Edit "resolution_fix.py"
-2. Change the values under "User defined variables" to you liking
+1. Copy ".env.example" and make the new filename ".env"
+2. Change the vcontent of ".env" to you liking
 3. Run "resolution_fix.py"
 
 ## When Blizzard.net launcher detects the script changes
