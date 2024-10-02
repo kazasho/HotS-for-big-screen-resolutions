@@ -131,7 +131,10 @@ except IndexError:
 		Height = re.findall(r'height=\d+', f.read())
 	print("Current height in config file: " + Height[0])
 
-#Check if width and height is correct, fix it if wrong
+# Check if width and height is correct, fix it if wrong.
+# Looks for the strings in the config file, and tries to change the values behind them based on user defined variables.
+# If the strings are missing, they will be appended to the file
+# Example: 1920 x 1200 results in height config element being missing due to being treated as standard. After changing to a different height and then back, then the application leaves height as a config element in the file
 
 
 if Width[0] == "width=" + Desired_resolution_w:
