@@ -4,6 +4,7 @@ from stat import S_IREAD, S_IWUSR
 import sys
 import re
 from modules.OS_checker import *
+import logging
 
 #User defined variables
 
@@ -11,6 +12,10 @@ from modules.OS_checker import *
 Desired_resolution_w = "5120"
 Desired_resolution_h = "1440"
 MakeConfigReadOnly = "no" #yes/no - Default no
+
+# Configure basic logging
+logging.basicConfig(filename='resolution_fix.log', level=logging.INFO, format='%(asctime)s %(message)s')
+
 
 #OS checker
 
@@ -30,14 +35,15 @@ def Add_read_only():
 	os.chmod(HotS_config_path, mode & ro_mask)
 
 def Permission_factory(func):
-    print("Permission factory: Fixing read-only attributte.")
-    func()
-    if func == Add_read_only:
-        print("Permission factory: Made file read-only.")
-    elif func == Remove_read_only:
-        print("Permission factory: Removed read-only restriction.")
-    else:
-        print("Permission factory: Wrong or missing parameter parsed.")
+	logging.debug("Permission factory: Fixing read-only attributte")
+	func()
+	if func == Add_read_only:
+		logging.info("Permission factory: Made file read-only")
+	elif func == Remove_read_only:
+		logging.info("Permission factory: Removed read-only restriction")
+	else:
+		logging.error("Permission factory: Wrong or missing parameter parsed")
+		print("Permission factory: Wrong or missing parameter parsed")
 
 
 #Change factory
@@ -54,10 +60,12 @@ def Change_width():
 		with open(HotS_config_path, "w") as w:
 			w.write(Replaced_width)
 	except IndexError:
+		logging.error(f"Change factory w: Could not find the 'width=' parameter in config file, delete the file and launch the game to have it re-created. Path: {HotS_config_path}")
 		print("Change factory w: Could not find the 'width=' parameter in config file, delete the file and launch the game to have it re-created. Path: ", HotS_config_path)
 		read_file.close()
 		sys.exit(0)
 	except:
+		logging.error("Change factory w: Error looping over config file")
 		print("Change factory w: Error looping over config file")
 		sys.exit()
 
@@ -73,10 +81,12 @@ def Change_height():
 		with open(HotS_config_path, "w") as w:
 			w.write(Replaced_height)
 	except IndexError:
+		logging.error(f"Change factory h: Could not find the 'height=' parameter in config file, delete the file and launch the game to have it re-created. Path: {HotS_config_path}")
 		print("Change factory h: Could not find the 'height=' parameter in config file, delete the file and launch the game to have it re-created. Path: ", HotS_config_path)
 		read_file.close()
 		sys.exit(0)
 	except:
+		logging.error("Change factory h: Error looping over config file")
 		print("Change factory h: Error looping over config file")
 		sys.exit()
 
@@ -90,18 +100,21 @@ try:
 	with open(HotS_config_path, "r") as r:
 		for count, line in enumerate(r):
 			pass
-		print("Number of lines is: ", count + 1)
+		logging.info(f"Number of lines is: {count + 1}")
 		if count + 1 <= 30:
 			raise ValueError
-	print(HotS_config_path + " exists and is readable, continuing.")
+	logging.info(f"{HotS_config_path} exists and is readable, continuing")
 except FileNotFoundError:
-	print("Filecheck factory: Config file not found, launch game to have it created.")
+	logging.error("Filecheck factory: Config file not found, launch game to have it created")
+	print("Filecheck factory: Config file not found, launch game to have it created")
 	sys.exit(0)
 except ValueError:
+	logging.error(f"Filecheck factory: File missing content, delete the file and launch the game to have a new one created. Path: {HotS_config_path}")
 	print("Filecheck factory: File missing content, delete the file and launch the game to have a new one created. Path: ", HotS_config_path)
 	sys.exit(0)
 except:
-	print("Filecheck factory: Exception raised")
+	logging.error("Filecheck factory: Unknown exception raised")
+	print("Filecheck factory: Unknown exception raised")
 
 #Change factory
 #Find current resolution
@@ -110,26 +123,30 @@ except:
 try:
 	with open(HotS_config_path, 'r') as f:
 		Width = re.findall(r'width=\d+', f.read())
-	print("Current width in config file: " + Width[0])
+	logging.info(f"Current width in config file: {Width[0]}")
+	#print("Current width in config file: " + Width[0])
 except IndexError:
 	# Create config line if missing
-	print("Width missing from config file, adding it.")
+	logging.info("Width missing from config file, adding it")
 	with open(HotS_config_path, 'a') as f:
 		f.write('width=1920')
 		Width = re.findall(r'width=\d+', f.read())
-	print("Current width in config file: " + Width[0])
+	logging.info(f"Current width in config file: {Width[0]}")
+	#print("Current width in config file: " + Width[0])
 try:
 	with open(HotS_config_path, 'r') as f:
 		Height = re.findall(r'height=\d+', f.read())
-	print("Current height in config file: " + Height[0])
+	logging.info(f"Current height in config file: {Height[0]}")
+	#print("Current height in config file: " + Height[0])
 except IndexError:
 	# Create config line if missing
-	print("Height missing from config file, adding it.")
+	logging.info("Height missing from config file, adding it")
 	with open(HotS_config_path, 'a') as f:
 		f.write('height=1200')
 	with open(HotS_config_path, 'r') as f:
 		Height = re.findall(r'height=\d+', f.read())
-	print("Current height in config file: " + Height[0])
+	logging.info(f"Current height in config file: {Height[0]}")
+	#print("Current height in config file: " + Height[0])
 
 # Check if width and height is correct, fix it if wrong.
 # Looks for the strings in the config file, and tries to change the values behind them based on user defined variables.
@@ -138,22 +155,28 @@ except IndexError:
 
 
 if Width[0] == "width=" + Desired_resolution_w:
-	print("Width is correct, moving on.")
+	logging.info("Width is correct")
+	print("Width is correct")
 else:
-	print("Width wrong, fixing.")
+	logging.info("Width wrong, fixing")
+	print("Width wrong, fixing")
 	Change_width()
 
 if Height[0] == "height=" + Desired_resolution_h:
-	print("Height is correct, moving on.")
+	logging.info("Height is correct")
+	print("Height is correct")
 else:
-	print("Height wrong, fixing.")
+	logging.info("Height wrong, fixing")
+	print("Height wrong, fixing")
 	Change_height()
 
 # Make config-file read only?
 
 
 if MakeConfigReadOnly == "yes":
+	logging.info("Making config file read-only")
 	Permission_factory(Add_read_only)
 else:
+	logging.info("MakeConfigReadOnly is either set to no, or wrong statement has been provided")
 	print("MakeConfigReadOnly is either set to no, or wrong statement has been provided")
 	sys.exit(0)
