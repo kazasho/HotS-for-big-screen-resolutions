@@ -149,10 +149,8 @@ else:
 # Make config-file read only?
 
 
-if MakeConfigReadOnly == "no":
-	print("Skipping to make the config file read-only")
-elif MakeConfigReadOnly == "yes":
+if MakeConfigReadOnly == "yes":
 	Permission_factory(Add_read_only)
 else:
-	print("MakeConfigReadOnly user defined variable is set wrong, yes or no is the only accepted statements")
+	print("MakeConfigReadOnly is either set to no, or wrong statement has been provided")
 	sys.exit(0)
