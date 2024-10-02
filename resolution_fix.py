@@ -16,6 +16,10 @@ Desired_resolution_h = os.getenv("Desired_resolution_h")
 MakeConfigReadOnly = os.getenv("MakeConfigReadOnly")
 
 # Configure basic logging
+
+
+if os.path.exists("resolution_fix.log"):
+	os.remove("resolution_fix.log")
 logging.basicConfig(filename='resolution_fix.log', level=logging.INFO, format='%(asctime)s %(message)s')
 
 
@@ -126,7 +130,6 @@ try:
 	with open(HotS_config_path, 'r') as f:
 		Width = re.findall(r'width=\d+', f.read())
 	logging.info(f"Current width in config file: {Width[0]}")
-	#print("Current width in config file: " + Width[0])
 except IndexError:
 	# Create config line if missing
 	logging.info("Width missing from config file, adding it")
@@ -134,12 +137,10 @@ except IndexError:
 		f.write('width=1920')
 		Width = re.findall(r'width=\d+', f.read())
 	logging.info(f"Current width in config file: {Width[0]}")
-	#print("Current width in config file: " + Width[0])
 try:
 	with open(HotS_config_path, 'r') as f:
 		Height = re.findall(r'height=\d+', f.read())
 	logging.info(f"Current height in config file: {Height[0]}")
-	#print("Current height in config file: " + Height[0])
 except IndexError:
 	# Create config line if missing
 	logging.info("Height missing from config file, adding it")
@@ -148,7 +149,6 @@ except IndexError:
 	with open(HotS_config_path, 'r') as f:
 		Height = re.findall(r'height=\d+', f.read())
 	logging.info(f"Current height in config file: {Height[0]}")
-	#print("Current height in config file: " + Height[0])
 
 # Check if width and height is correct, fix it if wrong.
 # Looks for the strings in the config file, and tries to change the values behind them based on user defined variables.
