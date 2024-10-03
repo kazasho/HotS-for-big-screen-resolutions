@@ -1,12 +1,13 @@
 import os
 import platform
 import sys
-from Logger_factory import LoggerFactory
+from modules.Logger_factory import LoggerFactory
+
 
 # Initiate logging
 
 
-logger = LoggerFactory.get_logger("resolution_fix.log", log_level=Log_level)
+logger = LoggerFactory.get_logger("OS_Checker.log", log_level="NOTSET")
 logger.debug("OS_Checker: Logging setup complete")
 
 # Filename variable
