@@ -3,7 +3,6 @@ import stat
 from stat import S_IREAD, S_IWUSR
 import sys
 import re
-from modules.OS_checker import *
 from modules.Logger_factory import LoggerFactory
 from dotenv import load_dotenv
 
@@ -26,7 +25,7 @@ logger.debug("Main: Logging setup complete")
 
 
 #OS checker
-
+from modules.OS_checker import *
 
 HotS_config_path = OS_checker()
 
