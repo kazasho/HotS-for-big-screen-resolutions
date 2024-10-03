@@ -28,5 +28,8 @@ If applicable, add screenshots to help explain your problem.
  - Version of script [e.g. 1.0.0]
  - Version of Python on the machine struggeling
 
+ **Attach log file**
+ Attach the log file from the run when you experienced the problem
+
 **Additional context**
 Add any other context about the problem here.
