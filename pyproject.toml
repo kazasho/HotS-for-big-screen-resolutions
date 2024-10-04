@@ -26,3 +26,11 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/kazasho/HotS-for-big-screen-resolutions"
 Issues = "https://github.com/kazasho/HotS-for-big-screen-resolutions/issues"
+
+
+[project.scripts]
+resolution_fix = "HotS_for_big_screen_resolutions_kazasho/resolution_fix"
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/HotS_for_big_screen_resolutions_kazasho"]
