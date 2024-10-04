@@ -36,4 +36,4 @@ resolution_fix = "resolution_fix:main"
 
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/HotS_for_big_screen_resolutions_kazasho"]
+packages = ["src"]
