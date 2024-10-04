@@ -25,7 +25,7 @@ logger.debug("Main: Logging setup complete")
 
 
 #OS checker
-from modules.OS_checker import *
+from modules.OS_checker import OS_checker
 
 HotS_config_path = OS_checker()
 
