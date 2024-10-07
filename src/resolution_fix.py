@@ -1,12 +1,9 @@
 import os
-import stat
-from stat import S_IREAD, S_IWUSR
 import sys
 import re
-from modules.Logger_factory import LoggerFactory
 from dotenv import load_dotenv
 
-#Import user defined variables
+# Import user defined variables
 
 
 load_dotenv()
@@ -17,43 +14,32 @@ Log_level = os.getenv("Log_level")
 
 # Initiate logging
 
+from modules.Logger_factory import LoggerFactory
 
-#if os.path.exists("resolution_fix.log"):
-#	os.remove("resolution_fix.log")
+# Remove old log file if existing
+if os.path.exists("resolution_fix.log"):
+	os.remove("resolution_fix.log")
+
 logger = LoggerFactory.get_logger("resolution_fix.log", log_level=Log_level)
 logger.debug("Main: Logging setup complete")
 
 
-#OS checker
+# OS checker
+
 from modules.OS_checker import OS_checker
+
 
 HotS_config_path = OS_checker()
 
-#Permission factory
+# Permission factory
+from modules.File_permission_factory import File_read_only
 
 
-def Remove_read_only():
-	os.chmod(HotS_config_path, S_IWUSR|S_IREAD)
+Remove_read_only = File_read_only.Remove_read_only
+Add_read_only = File_read_only.Add_read_only
 
+# Change factory
 
-def Add_read_only():
-	mode = os.stat(HotS_config_path).st_mode
-	ro_mask = 0o777 ^ (stat.S_IWRITE | stat.S_IWGRP | stat.S_IWOTH)
-	os.chmod(HotS_config_path, mode & ro_mask)
-
-def Permission_factory(func):
-	logger.debug("Permission factory: Fixing read-only attributte")
-	func()
-	if func == Add_read_only:
-		logger.info("Permission factory: Made file read-only")
-	elif func == Remove_read_only:
-		logger.info("Permission factory: Removed read-only restriction")
-	else:
-		logger.error("Permission factory: Wrong or missing parameter parsed")
-		print("Permission factory: Wrong or missing parameter parsed")
-
-
-#Change factory
 
 def Change_width():
 	Replaced_width = ""
@@ -75,6 +61,7 @@ def Change_width():
 		logger.error("Change factory w: Error looping over config file")
 		print("Change factory w: Error looping over config file")
 		sys.exit()
+
 
 def Change_height():
 	Replaced_height = ""
@@ -98,12 +85,12 @@ def Change_height():
 		sys.exit()
 
 
-#Filecheck factory
-#Check that config file exists, and if we can modify it
+# Filecheck factory
+# Check that config file exists, and if we can modify it
 
 
 try:
-	Permission_factory(Remove_read_only)
+	Remove_read_only(HotS_config_path, logger)
 	with open(HotS_config_path, "r") as r:
 		for count, line in enumerate(r):
 			pass
@@ -123,8 +110,8 @@ except:
 	logger.error("Filecheck factory: Unknown exception raised")
 	print("Filecheck factory: Unknown exception raised")
 
-#Change factory
-#Find current resolution
+# Change factory
+# Find current resolution
 
 
 try:
@@ -177,8 +164,7 @@ else:
 
 
 if MakeConfigReadOnly == "yes":
-	logger.info("Making config file read-only")
-	Permission_factory(Add_read_only)
+	Add_read_only(HotS_config_path, logger)
 else:
 	logger.info("MakeConfigReadOnly is either set to no, or wrong statement has been provided")
 	print("MakeConfigReadOnly is either set to no, or wrong statement has been provided")
