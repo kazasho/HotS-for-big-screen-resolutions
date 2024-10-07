@@ -7,7 +7,7 @@ Works on Python v3.9.6
 
 ## First time setup
 
-1. Make sure the package "python-dotenv" is installed (pip install python-dotenv). Working on building a installer that handles this automatically
+1. Make sure the package "python-dotenv" is installed (pip install python-dotenv). Maybe I'll make a installer that handles this, eventually.
 2. Copy ".env.example" and make the new filename ".env"
 3. Change the content of ".env" to you liking
 4. Run "resolution_fix.py"
