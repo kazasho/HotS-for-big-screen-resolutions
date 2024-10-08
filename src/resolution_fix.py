@@ -66,6 +66,7 @@ def main():
 		with open(HotS_config_path, 'r') as f:
 			Width = re.findall(r'width=\d+', f.read())
 		logger.info(f"Current width in config file: {Width[0]}")
+	
 	except IndexError:
 		# Create config line if missing
 		logger.info("Width missing from config file, adding it")
@@ -78,6 +79,7 @@ def main():
 		with open(HotS_config_path, 'r') as f:
 			Height = re.findall(r'height=\d+', f.read())
 		logger.info(f"Current height in config file: {Height[0]}")
+	
 	except IndexError:
 		# Create config line if missing
 		logger.info("Height missing from config file, adding it")
@@ -120,7 +122,7 @@ def main():
 		Add_read_only(HotS_config_path, logger)
 
 	else:
-		
+
 		logger.info("MakeConfigReadOnly is either set to no, or wrong statement has been provided")
 		print("MakeConfigReadOnly is either set to no, or wrong statement has been provided")
 		sys.exit(0)
