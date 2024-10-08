@@ -39,16 +39,17 @@ def main():
 	Remove_read_only = File_read_only.Remove_read_only
 	Add_read_only = File_read_only.Add_read_only
 
+
+	# OS checker
+
+	HotS_config_path = OS_checker()
+	
+
 	# Filecheck factory
 	# Check that config file exists, and if we can modify it
 
 
 	File_change_content.File_check_factory(Remove_read_only, HotS_config_path, logger)
-
-
-	# OS checker
-
-	HotS_config_path = OS_checker()
 
 
 	# Change content
