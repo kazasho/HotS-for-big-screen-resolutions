@@ -12,6 +12,10 @@ Desired_resolution_h = os.getenv("Desired_resolution_h")
 MakeConfigReadOnly = os.getenv("MakeConfigReadOnly")
 Log_level = os.getenv("Log_level")
 
+# Other variables
+
+Config_separator = "="
+
 # Initiate logging
 
 from modules.Logger_factory import LoggerFactory
@@ -47,27 +51,9 @@ Change_content = File_change_content.Change_content
 # Check that config file exists, and if we can modify it
 
 
-try:
-	Remove_read_only(HotS_config_path, logger)
-	with open(HotS_config_path, "r") as r:
-		for count, line in enumerate(r):
-			pass
-		logger.info(f"Number of lines is: {count + 1}")
-		if count + 1 <= 30:
-			raise ValueError
-	logger.info(f"{HotS_config_path} exists and is readable, continuing")
-except FileNotFoundError:
-	logger.error("Filecheck factory: Config file not found, launch game to have it created")
-	print("Filecheck factory: Config file not found, launch game to have it created")
-	sys.exit(0)
-except ValueError:
-	logger.error(f"Filecheck factory: File missing content, delete the file and launch the game to have a new one created. Path: {HotS_config_path}")
-	print("Filecheck factory: File missing content, delete the file and launch the game to have a new one created. Path: ", HotS_config_path)
-	sys.exit(0)
-except:
-	logger.error("Filecheck factory: Unknown exception raised")
-	print("Filecheck factory: Unknown exception raised")
+File_change_content.File_check_factory(Remove_read_only, HotS_config_path, logger)
 
+	
 # Change factory
 # Find current resolution
 
@@ -109,7 +95,7 @@ if Width[0] == "width=" + Desired_resolution_w:
 else:
 	logger.info("Width wrong, fixing")
 	print("Width wrong, fixing")
-	Change_content(HotS_config_path, Width, Desired_resolution_w, logger)
+	Change_content(HotS_config_path, Width, Desired_resolution_w, Config_separator, logger)
 
 if Height[0] == "height=" + Desired_resolution_h:
 	logger.info("Height is correct")
@@ -117,7 +103,7 @@ if Height[0] == "height=" + Desired_resolution_h:
 else:
 	logger.info("Height wrong, fixing")
 	print("Height wrong, fixing")
-	Change_content(HotS_config_path, Height, Desired_resolution_h, logger)
+	Change_content(HotS_config_path, Height, Desired_resolution_h, Config_separator, logger)
 
 # Make config-file read only?
 
