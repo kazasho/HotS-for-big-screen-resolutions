@@ -107,17 +107,23 @@ def main():
 	"""
 
 	if Width[0] == "width=" + Desired_resolution_w:
+	
 		logger.info("Width is correct")
 		print("Width is correct")
+	
 	else:
+	
 		logger.info("Width wrong, fixing")
 		print("Width wrong, fixing")
 		Change_content(HotS_config_path, Width, Desired_resolution_w, Config_separator, logger)
 
 	if Height[0] == "height=" + Desired_resolution_h:
+	
 		logger.info("Height is correct")
 		print("Height is correct")
+	
 	else:
+	
 		logger.info("Height wrong, fixing")
 		print("Height wrong, fixing")
 		Change_content(HotS_config_path, Height, Desired_resolution_h, Config_separator, logger)
