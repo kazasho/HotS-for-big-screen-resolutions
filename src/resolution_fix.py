@@ -39,51 +39,9 @@ Remove_read_only = File_read_only.Remove_read_only
 Add_read_only = File_read_only.Add_read_only
 
 # Change factory
+from modules.Config_change_content import File_change_content
 
-
-def Change_width():
-	Replaced_width = ""
-	try:
-		read_file = open(HotS_config_path, "r")
-		for line in read_file:
-			line = line.strip()
-			New_width = line.replace(Width[0], "width=" + Desired_resolution_w)
-			Replaced_width = Replaced_width + New_width + "\n"
-		read_file.close()
-		with open(HotS_config_path, "w") as w:
-			w.write(Replaced_width)
-	except IndexError:
-		logger.error(f"Change factory w: Could not find the 'width=' parameter in config file, delete the file and launch the game to have it re-created. Path: {HotS_config_path}")
-		print("Change factory w: Could not find the 'width=' parameter in config file, delete the file and launch the game to have it re-created. Path: ", HotS_config_path)
-		read_file.close()
-		sys.exit(0)
-	except:
-		logger.error("Change factory w: Error looping over config file")
-		print("Change factory w: Error looping over config file")
-		sys.exit()
-
-
-def Change_height():
-	Replaced_height = ""
-	try:
-		read_file = open(HotS_config_path, "r")
-		for line in read_file:
-			line = line.strip()
-			New_height = line.replace(Height[0], "height=" + Desired_resolution_h)
-			Replaced_height = Replaced_height + New_height + "\n"
-		read_file.close()
-		with open(HotS_config_path, "w") as w:
-			w.write(Replaced_height)
-	except IndexError:
-		logger.error(f"Change factory h: Could not find the 'height=' parameter in config file, delete the file and launch the game to have it re-created. Path: {HotS_config_path}")
-		print("Change factory h: Could not find the 'height=' parameter in config file, delete the file and launch the game to have it re-created. Path: ", HotS_config_path)
-		read_file.close()
-		sys.exit(0)
-	except:
-		logger.error("Change factory h: Error looping over config file")
-		print("Change factory h: Error looping over config file")
-		sys.exit()
-
+Change_content = File_change_content.Change_content
 
 # Filecheck factory
 # Check that config file exists, and if we can modify it
@@ -125,6 +83,7 @@ except IndexError:
 		f.write('width=1920')
 		Width = re.findall(r'width=\d+', f.read())
 	logger.info(f"Current width in config file: {Width[0]}")
+
 try:
 	with open(HotS_config_path, 'r') as f:
 		Height = re.findall(r'height=\d+', f.read())
@@ -150,7 +109,7 @@ if Width[0] == "width=" + Desired_resolution_w:
 else:
 	logger.info("Width wrong, fixing")
 	print("Width wrong, fixing")
-	Change_width()
+	Change_content(HotS_config_path, Width, Desired_resolution_w, logger)
 
 if Height[0] == "height=" + Desired_resolution_h:
 	logger.info("Height is correct")
@@ -158,7 +117,7 @@ if Height[0] == "height=" + Desired_resolution_h:
 else:
 	logger.info("Height wrong, fixing")
 	print("Height wrong, fixing")
-	Change_height()
+	Change_content(HotS_config_path, Height, Desired_resolution_h, logger)
 
 # Make config-file read only?
 
