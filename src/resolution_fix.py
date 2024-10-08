@@ -19,6 +19,7 @@ Log_level = os.getenv("Log_level")
 # Other variables
 
 Config_separator = "="
+HotS_config_file = "Variables.txt"
 
 
 def main():
@@ -42,8 +43,8 @@ def main():
 
 	# OS checker
 
-	HotS_config_path = OS_checker()
-	
+	HotS_config_path = OS_checker(HotS_config_file, logger)
+
 
 	# Filecheck factory
 	# Check that config file exists, and if we can modify it
