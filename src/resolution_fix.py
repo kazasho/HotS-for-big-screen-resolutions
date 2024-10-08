@@ -75,6 +75,7 @@ def main():
 		
 		with open(HotS_config_path, 'a') as f:
 			f.write('\nwidth=1920\n')
+		
 		with open(HotS_config_path, 'r') as f:
 			Width = re.findall(r'width=\d+', f.read())
 		logger.info(f"Current width in config file: {Width[0]}")
@@ -92,6 +93,7 @@ def main():
 		
 		with open(HotS_config_path, 'a') as f:
 			f.write('height=1200\n')
+		
 		with open(HotS_config_path, 'r') as f:
 			Height = re.findall(r'height=\d+', f.read())
 		logger.info(f"Current height in config file: {Height[0]}")
