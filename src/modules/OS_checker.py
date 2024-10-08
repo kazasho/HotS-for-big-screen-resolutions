@@ -1,7 +1,6 @@
 import os
 import platform
 import sys
-from modules.Logger_factory import LoggerFactory
 
 
 # A function checking which OS it is being executed on
