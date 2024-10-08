@@ -116,8 +116,11 @@ def main():
 
 
 	if MakeConfigReadOnly == "yes":
+
 		Add_read_only(HotS_config_path, logger)
+
 	else:
+		
 		logger.info("MakeConfigReadOnly is either set to no, or wrong statement has been provided")
 		print("MakeConfigReadOnly is either set to no, or wrong statement has been provided")
 		sys.exit(0)
